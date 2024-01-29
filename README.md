@@ -20,7 +20,7 @@ Currently the bot is only designed for prizepicks, but with additional proper co
 
 ## Features
 
-- Can be configured to listen to messages in any discord channel (see settings.py)
+- Can be configured to listen to messages in any discord channel (see `settings.py`)
 - Parses messages for additional information (unit size recommendations, cancel slip warnings, etc.)
 - Before placing any slips, checks to ensure no player lines have bumped (if player lines have bumped, slip won't place & an email will be sent to notify the owner)
 - A 'retry' mechanism should the website not fully load-in.
@@ -48,11 +48,13 @@ This project requires environment variables to run.
 Most of the environment variables contain private information, so please make sure to not publicly show this information.
 Env vars are read into the `settings.py`where some additional information can also be found regarding env vars.
 
+All env vars should be placed in the `.env` file
+
 - `DISCORD_TOKEN` : Your unqiue discord token
 - `EMAIL` : login email for prizepicks
 - `PASSWORD` : login password for prizepicks
 - `UNIT_SIZE` : Dollar amount for 1 unit size
-- `MAX_BET_SIZE` : Safety var to ensure no bets are placed over this value (my personal default is double my unit_size)
+- `MAX_BET_SIZE` : Safety var to ensure no bets are placed over this value (my personal default is double my unit_size) (units are also in USD $)
 - `EMAIL_SENDER` : email address for `email_service.py` (sends emails)
 - `EMAIL_PASSWORD` : password for `email_service.py`
 - `EMAIL_RECIPIENT_01` : email address to receive email notifactions (can be same or different as `EMAIL_SENDER`)
