@@ -31,7 +31,7 @@ class MessageListener():
     def _heartbeat(self, interval: float, logger):
         """"""
         logger.info(f"Heartbeat started")
-        print(f"interval is: {interval}")
+        # print(f"interval is: {interval}")
         try:
             while True:
                 sleep(interval)
@@ -215,10 +215,12 @@ class MessageListener():
 
 
         # Check if we found a URL in the received msg
-        if 'url' not in parsed_msg_dict: return False 
+        if 'url' not in parsed_msg_dict: return False
+             
 
         # Check if message contained multiple URLS:
         if len(parsed_msg_dict['url']) > 1: return False
+            
             
         # Check to ensure message does not contain any 'banned words'
         if not self.valid_message_content(additional_words): return False
@@ -235,9 +237,9 @@ class MessageListener():
 
         # Else, unit size is 1.0
         else:
-            parsed_msg_dict['unit_size'] = unit_size
+            parsed_msg_dict['unit_size'] = float(unit_size)
 
         
-        print(f"Parsed message dict: {parsed_msg_dict}")
+        # print(f"Parsed message dict: {parsed_msg_dict}")
 
         return parsed_msg_dict

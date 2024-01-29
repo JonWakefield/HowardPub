@@ -78,6 +78,10 @@ URLS = {
     "prize_picks": "https://app.prizepicks.com/login",
     "underdog": "https://underdogfantasy.com/"
 }
+
+# prize picks base url 
+PP_BASE_URL = "https://app.prizepicks.com/"
+GOOGLE_URL = "https://www.google.com/"
     
 
 # SET UP LOGGIN CONFIGURATION

@@ -1,14 +1,14 @@
 import settings
 import websocket
 import threading
-import datetime
 import settings
 from modules.message_listener import MessageListener
 from modules.bet_placer import BetPlacer
 from websocket._exceptions import WebSocketException
 from modules.email_service import EmailMessenger
 from queue import Queue
-import sys, os
+import sys, os, random
+import time
 
 # Setup our logger:
 logger = settings.logging.getLogger()
@@ -63,6 +63,14 @@ def run(token: str,
     login_result = web_driver.login_prize_picks(urls['prize_picks'])
     if not login_result: return False # If login fails, end program
 
+    # simulate user interaction on prize picks:
+    success = web_driver.simulate_user_interaction()
+    if not success: logger.info("Failed To simulate user interaction")
+
+    # get random time interval to simulate user interactions
+    time_interval = random.randint(37, 51) * 60 
+    # print(f"Time interval is {time_interval} minutes")
+    start_time = time.time()
 
     # continues loop of reading in messages and taken actions based on message
     try:
@@ -70,6 +78,20 @@ def run(token: str,
 
             # Recent var:
             bet_placed = False
+
+            # Check if we need to simulate some random actions before getting next message:
+            cur_time = time.time()
+            elapsed_time = cur_time - start_time
+            if elapsed_time >= time_interval:
+                # simulate some user action:
+                success = web_driver.simulate_user_interaction()
+                if not success: logger.info("Failed To simulate user interaction")
+
+                # Get new time interval and starting time
+                time_interval = random.randint(37, 51) * 60 
+                # print(f"Time interval is {time_interval} minutes")
+                start_time = time.time()
+
             
             # pop most recent message from queue
             event = response_queue.get()
@@ -105,12 +127,13 @@ def run(token: str,
                             # Check if prizepicks link in message
                             if 'url' in parsed_message:
                                 # Check to make sure the correct role is found in the message:
-                                if parsed_message['role'] != -1:
-                                    # Place bet:
-                                    logger.info("Placing prizepicks bet...")
-                                    bet_placed = web_driver.place_pp_bet(parsed_message)
-                                    if bet_placed:
-                                        logger.info("Prize picks bet successfully placed")
+                                # NOTE: since roles are no longer relavent, ignore check (channels still matteer)
+                                # if parsed_message['role'] != -1:
+                                # Place bet:
+                                logger.info("Placing prizepicks bet...")
+                                bet_placed = web_driver.extract_pp_bet(parsed_message)
+                                if bet_placed:
+                                    logger.info("Prize picks bet successfully placed")
 
                         except (TypeError) as t_err:
                             pass
