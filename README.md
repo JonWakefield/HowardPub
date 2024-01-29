@@ -57,7 +57,7 @@ All env vars should be placed in the `.env` file
 - `MAX_BET_SIZE` : Safety var to ensure no bets are placed over this value (my personal default is double my unit_size) (units are also in USD $)
 - `EMAIL_SENDER` : email address for `email_service.py` (sends emails)
 - `EMAIL_PASSWORD` : password for `email_service.py`
-- `EMAIL_RECIPIENT_01` : email address to receive email notifactions (can be same or different as `EMAIL_SENDER`)
+- `EMAIL_RECIPIENT_01` : email address to receive email notifactions (can be same or different as `EMAIL_SENDER`) (NOTE: can have N different email recipients, email recipients are stored in a python list and iterated through. To add more, create an env var (ex: `EMAIL_RECIPIENT_02`) and add var to list in `settings.py`)
 
 ## Disclaimer
 
