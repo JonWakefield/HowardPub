@@ -23,6 +23,7 @@ Currently the bot is only designed for prizepicks, but with additional proper co
 - Can be configured to listen to messages in any discord channel (see settings.py)
 - Parses messages for additional information (unit size recommendations, cancel slip warnings, etc.)
 - Before placing any slips, checks to ensure no player lines have bumped (if player lines have bumped, slip won't place & an email will be sent to notify the owner)
+- A 'retry' mechanism should the website not fully load-in.
 - MAX_BET_SIZE comparision to ensure no errant slip amounts
 - Email notification system (emails are sent on both successful & unsuccessful placement with proper identifying information)
 - error & additional information logging
